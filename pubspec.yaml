@@ -1,7 +1,7 @@
 name: code_on_the_rocks
 description: A bold and balanced state management library that pairs the MVVM structures of Stacked with the simplicity of GetIt.
 version: 0.0.1
-homepage:
+homepage: https://codeontherocks.dev/
 
 environment:
   sdk: '>=3.0.5 <4.0.0'

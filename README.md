@@ -23,4 +23,42 @@ What makes this package different from Stacked (aside from its drastically reduc
 2. Unregistered from GetIt when the ViewModelBuilder is disposed
 Now there is no technical or architectural difference between services in your service locator or ViewModels used by your UI. All of these classes are registered in GetIt just the same. This also means you can use the GetItMixin in nested widgets to selectively react to changes in your ViewModel (this serves the same purpose as the ViewModelWidget in Stacked).
 
-## Usage
+## IntelliJ Live Templates
+
+### ViewModelBuilder
+```dart
+import 'package:flutter/material.dart';
+import '$snakeName$_model.dart';
+
+class $name$View extends StatelessWidget {
+  const $name$View({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<$name$ViewModel>(
+      modelToRegister: $name$ViewModel(),
+      builder: (context, model, child) {
+        return const Scaffold(body: Text('Hello World'));
+      },
+    );
+  }
+}
+```
+
+### ViewModel
+```dart
+import 'package:flutter/foundation.dart';
+
+class $name$ViewModel extends ChangeNotifier {
+  ValueNotifier<bool> loading = ValueNotifier(false);
+
+  bool get isLoading => loading.value;
+
+  void setLoading(bool val) {
+    loading.value = val;
+    notifyListeners();
+  }
+}
+```
+
+You can read more about using variables in Live Templates [here](https://www.jetbrains.com/help/idea/template-variables.html#example_live_template_variables).

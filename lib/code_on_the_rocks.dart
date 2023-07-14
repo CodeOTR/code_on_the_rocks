@@ -13,8 +13,16 @@ class ViewModel extends ChangeNotifier {
     loading.value = val;
     notifyListeners();
   }
+
+  /// Runs a future and sets the loading notifier to true while it is running
+  void runBusyFuture(Future Function() busyFuture, ValueNotifier<bool> busy) async {
+    busy.value = true;
+    await busyFuture();
+    busy.value = false;
+  }
 }
 
+/// A widget that will rebuild when the model changes
 abstract class ViewModelWidget<T extends ChangeNotifier> extends Widget {
   const ViewModelWidget({super.key});
 

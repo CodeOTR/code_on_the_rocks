@@ -11,7 +11,7 @@ Over the years I've become a big fan of several different "state-management" sol
 
 This package is an attempt to combine the best parts of these solutions into a single package that is easy to use and understand. The main benefits are listed here:
 
-### 💙 Pure Dart
+### 💙 Pure Flutter
 
 ViewModelProviders are InheritedWidgets, meaning you can access them the using methods built into the Flutter framework. Since the ViewModel is a property on the ViewModelProvider, you can access it using the [dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html) context method. This package sets that up for you so can just do this:
 

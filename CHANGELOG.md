@@ -7,13 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Changed] Migrated to ViewModelBuilder, ViewModel, and ViewModelProvider classes
 - [Added] Added Live Templates for IntelliJ
 - [Removed] Removed dependency on get_it
-- **Date**: 7-14-2023
+- [Changed] Updated example to illustrate new usage
+- **Date**: 8-13-2023
 
 ## 0.0.1
 - [Added] Initial pre-release
 - **Date**: 7-14-2023
 
-## Types of Changes
+# Types of Changes
 - Added
 - Changed
 - Deprecated

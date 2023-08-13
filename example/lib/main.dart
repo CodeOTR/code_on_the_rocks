@@ -24,10 +24,13 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: HomeViewModelBuilder(
-        builder: (context, model) {
-          return Stack(
+    return HomeViewModelBuilder(
+      builder: (context, model) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(model.title),
+          ),
+          body: Stack(
             children: [
               Center(
                 child: Column(
@@ -39,17 +42,17 @@ class HomeView extends StatelessWidget {
                       onPressed: model.isLoading
                           ? () {}
                           : () async {
-                              HomeViewModel().of(context).incrementCounterWithSetState();
-                              model.setLoading(false);
-                            },
+                        HomeViewModel().of(context).incrementCounterWithSetState();
+                        model.setLoading(false);
+                      },
                       child: const Text('Increment using setState'),
                     ),
                     ElevatedButton(
                       onPressed: model.isLoading
                           ? () {}
                           : () {
-                              model.incrementCounterWithValueNotifier();
-                            },
+                        model.incrementCounterWithValueNotifier();
+                      },
                       child: const Text('Increment using ValueNotifier'),
                     )
                   ],
@@ -57,9 +60,9 @@ class HomeView extends StatelessWidget {
               ),
               if (model.isLoading) const ColoredBox(color: Colors.black12, child: Center(child: CircularProgressIndicator()))
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -74,7 +77,7 @@ class SeparatedCounter extends StatelessWidget {
 }
 
 class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
-  const HomeViewModelBuilder({
+   const HomeViewModelBuilder({
     super.key,
     required super.builder,
   });
@@ -84,7 +87,10 @@ class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
 }
 
 class HomeViewModel extends ViewModel<HomeViewModel> {
-  // static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
+
+  static HomeViewModel of_(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
+
+  final String title = 'Home';
 
   ValueNotifier<int> counter = ValueNotifier(0);
 
@@ -96,5 +102,17 @@ class HomeViewModel extends ViewModel<HomeViewModel> {
 
   void incrementCounterWithValueNotifier() {
     counter.value++;
+  }
+
+  @override
+  void initState() {
+    debugPrint('Initialize');
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    debugPrint('Dispose');
+    super.dispose();
   }
 }

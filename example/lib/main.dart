@@ -33,23 +33,24 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(model.counter.value.toString()),
+                    ValueListenableBuilder(valueListenable: model.counter, builder: (context, value, child) => Text(value.toString())),
+                    const SeparatedCounter(),
                     ElevatedButton(
                       onPressed: model.isLoading
                           ? () {}
                           : () async {
-                              model.incrementCounterWithLoader();
+                              HomeViewModel().of(context).incrementCounterWithSetState();
                               model.setLoading(false);
                             },
-                      child: const Text('Increment with Loader'),
+                      child: const Text('Increment using setState'),
                     ),
                     ElevatedButton(
                       onPressed: model.isLoading
                           ? () {}
                           : () {
-                              model.incrementCounter();
+                              model.incrementCounterWithValueNotifier();
                             },
-                      child: const Text('Increment Now'),
+                      child: const Text('Increment using ValueNotifier'),
                     )
                   ],
                 ),
@@ -60,6 +61,15 @@ class HomeView extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class SeparatedCounter extends StatelessWidget {
+  const SeparatedCounter({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(HomeViewModel().of(context).counter.value.toString());
   }
 }
 
@@ -74,21 +84,17 @@ class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
 }
 
 class HomeViewModel extends ViewModel<HomeViewModel> {
-
-  static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider>()!.state) as HomeViewModel;
+  // static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
 
   ValueNotifier<int> counter = ValueNotifier(0);
 
-  Future<void> incrementCounterWithLoader() async {
-    setLoading(true);
-    await Future.delayed(const Duration(seconds: 1));
-    counter.value = counter.value + 1;
-    setLoading(false);
+  Future<void> incrementCounterWithSetState() async {
+    setState(() {
+      counter.value = counter.value + 1;
+    });
   }
 
-  void incrementCounter() {
-    setState(() {
-      counter.value++;
-    });
+  void incrementCounterWithValueNotifier() {
+    counter.value++;
   }
 }

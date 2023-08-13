@@ -10,6 +10,9 @@ abstract class ViewModelBuilder<TViewModel> extends StatefulWidget {
 }
 
 abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
+
+  T of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<T>>>()!.state) as T;
+
   ValueNotifier<bool> loading = ValueNotifier(false);
 
   bool get isLoading => loading.value;
@@ -21,14 +24,16 @@ abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
   }
 
   @override
-  Widget build(BuildContext context) => ViewModelProvider(
-    state: this,
-    child: Builder(
-      builder: (context) {
-        return widget.builder(context, this as T);
-      },
-    ),
-  );
+  Widget build(BuildContext context) {
+   return ViewModelProvider(
+      state: this,
+      child: Builder(
+        builder: (context) {
+          return widget.builder(context, this as T);
+        },
+      ),
+    );
+  }
 }
 
 class ViewModelProvider<TViewModel extends ViewModel> extends InheritedWidget {

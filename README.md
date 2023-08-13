@@ -40,10 +40,10 @@ To get started using this library, you need to create 2 classes - a ViewModelBui
 
 The ViewModel is a [State](https://api.flutter.dev/flutter/widgets/State-class.html) object that introduces an InheritedWidget to the widget tree. This is where your business logic will live.
 ```dart
-class HomeViewModel extends ViewModel {
+class HomeViewModel extends ViewModel<HomeViewModel> {
   
   // For convenience, you can add a static .of getter. This is optional
-  static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider>()!.state) as HomeViewModel;
+  static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
 
   // Here is where you will add your business logic and state properties
   // Notice that you have access to setState here
@@ -69,6 +69,35 @@ The ViewModelBuilder is a widget that you will include in your widget tree. View
   State<StatefulWidget> createState() => HomeViewModel();
 }
  ```
+
+## Usage
+Once you have your ViewModel and ViewModelBuilder, add the ViewModelBuilder to your widget tree:
+```dart
+return Scaffold(
+      body: HomeViewModelBuilder(
+        builder: (context, model) {
+          return Text('Test')
+        },
+      ),
+    );
+```
+
+Then you can access the ViewModel using the built-in .of() method:
+```dart
+return Scaffold(
+      body: HomeViewModelBuilder(
+        builder: (context, model) {
+          return Text(HomeViewModel().of(context).title); // Add a title String to your ViewModel
+        },
+      ),
+    );
+```
+The .of(context) method only works on an instance of your ViewModel since [static members can' reference type parameters of a class](https://dart.dev/tools/diagnostic-messages?utm_source=dartdev&utm_medium=redir&utm_id=diagcode&utm_content=type_parameter_referenced_by_static#type_parameter_referenced_by_static).
+
+To update your UI after a change in the ViewModel, you have two options. 
+1. Use `setState` will rebuild the entire widget tree inside your ViewModelBuilder
+2. Use a combination of ValueNotifiers and ValueListenableBuilders to selectively rebuild parts of the UI
+
 
 ## IntelliJ Live Templates
 
@@ -109,7 +138,7 @@ class $Name$ViewModelBuilder extends ViewModelBuilder<$Name$ViewModel> {
   State<StatefulWidget> createState() => $Name$ViewModel();
 }
 
-class $Name$ViewModel extends ViewModel {
+class $Name$ViewModel extends ViewModel<$Name$ViewModel> {
   static $Name$ViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider>()!.state) as $Name$ViewModel;
 }
 ```

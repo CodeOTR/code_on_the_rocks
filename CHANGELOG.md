@@ -3,11 +3,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.0.2
+- [Changed] Migrated to ViewModelBuilder, ViewModel, and ViewModelProvider classes
+- [Added] Added Live Templates for IntelliJ
+- [Removed] Removed dependency on get_it
+- [Changed] Updated example to illustrate new usage
+- **Date**: 8-13-2023
+
 ## 0.0.1
 - [Added] Initial pre-release
 - **Date**: 7-14-2023
 
-## Types of Changes
+# Types of Changes
 - Added
 - Changed
 - Deprecated

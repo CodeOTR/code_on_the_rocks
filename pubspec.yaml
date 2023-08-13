@@ -1,6 +1,6 @@
 name: code_on_the_rocks
-description: A bold and balanced state management library that pairs the MVVM structures of Stacked with the simplicity of GetIt.
-version: 0.0.1
+description: A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget.
+version: 0.0.2
 homepage: https://codeontherocks.dev/
 
 environment:
@@ -10,12 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_it: ^7.6.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
 

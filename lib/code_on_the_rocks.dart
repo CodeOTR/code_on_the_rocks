@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 typedef ModelBuilder<TViewModel> = Widget Function(BuildContext context, TViewModel model);
 
-abstract class ViewModelBuilder<TViewModel extends ViewModel> extends StatefulWidget {
+abstract class ViewModelBuilder<TViewModel> extends StatefulWidget {
   const ViewModelBuilder({Key? key, required this.builder}) : super(key: key);
-  final ModelBuilder builder;
+  final ModelBuilder<TViewModel> builder;
 }
 
-class ViewModel<TViewModel> extends State<ViewModelBuilder> {
+abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
   ValueNotifier<bool> loading = ValueNotifier(false);
 
   bool get isLoading => loading.value;
@@ -19,21 +19,11 @@ class ViewModel<TViewModel> extends State<ViewModelBuilder> {
       loading.value = val;
     });
   }
-
-  @override
-  Widget build(BuildContext context) => ViewModelProvider(
-        state: this,
-        child: Builder(
-          builder: (context) {
-            return widget.builder(context, this);
-          },
-        ),
-      );
 }
 
-class ViewModelProvider extends InheritedWidget {
+class ViewModelProvider<TViewModel extends ViewModel> extends InheritedWidget {
   const ViewModelProvider({Key? key, required Widget child, required this.state}) : super(key: key, child: child);
-  final ViewModel state;
+  final TViewModel state;
 
   @override
   // Always rebuild children if state changes

@@ -46,7 +46,7 @@ class HomeView extends StatelessWidget {
                     ElevatedButton(
                       onPressed: model.isLoading
                           ? () {}
-                          : () async {
+                          : () {
                               model.incrementCounter();
                             },
                       child: const Text('Increment Now'),

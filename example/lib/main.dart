@@ -1,23 +1,20 @@
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Code on the Rocks',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: HomeView(),
+      home: const HomeView(),
     );
   }
 }
@@ -27,39 +24,70 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>(
-      modelToRegister: HomeViewModel(),
-      builder: (context, model, child) {
-        return  Scaffold(body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    return Scaffold(
+      body: HomeViewModelBuilder(
+        builder: (context, model) {
+          return Stack(
             children: [
-              Text(model.counter.value.toString()),
-              ElevatedButton(onPressed: (){
-                model.setCounter(model.counter.value + 1);
-              }, child: Text('Increment'))
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(model.counter.value.toString()),
+                    ElevatedButton(
+                      onPressed: model.isLoading
+                          ? () {}
+                          : () async {
+                              model.incrementCounterWithLoader();
+                              model.setLoading(false);
+                            },
+                      child: const Text('Increment with Loader'),
+                    ),
+                    ElevatedButton(
+                      onPressed: model.isLoading
+                          ? () {}
+                          : () async {
+                              model.incrementCounter();
+                            },
+                      child: const Text('Increment Now'),
+                    )
+                  ],
+                ),
+              ),
+              if (model.isLoading) const ColoredBox(color: Colors.black12, child: Center(child: CircularProgressIndicator()))
             ],
-          ),
-        ));
-      },
+          );
+        },
+      ),
     );
   }
 }
 
-class HomeViewModel extends ChangeNotifier {
-  ValueNotifier<bool> loading = ValueNotifier(false);
+class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
+  const HomeViewModelBuilder({
+    super.key,
+    required super.builder,
+  });
+
+  @override
+  State<StatefulWidget> createState() => HomeViewModel();
+}
+
+class HomeViewModel extends ViewModel {
+  static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider>()!.state) as HomeViewModel;
 
   ValueNotifier<int> counter = ValueNotifier(0);
 
-  void setCounter(int val){
-    counter.value = val;
-    notifyListeners();
+  Future<void> incrementCounterWithLoader() async {
+    setLoading(true);
+    await Future.delayed(const Duration(seconds: 1));
+    counter.value = counter.value + 1;
+    setLoading(false);
   }
 
-  bool get isLoading => loading.value;
-
-  void setLoading(bool val) {
-    loading.value = val;
-    notifyListeners();
+  void incrementCounter() {
+    setState(() {
+      counter.value++;
+    });
   }
 }

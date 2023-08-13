@@ -19,6 +19,16 @@ abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
       loading.value = val;
     });
   }
+
+  @override
+  Widget build(BuildContext context) => ViewModelProvider(
+    state: this,
+    child: Builder(
+      builder: (context) {
+        return widget.builder(context, this as T);
+      },
+    ),
+  );
 }
 
 class ViewModelProvider<TViewModel extends ViewModel> extends InheritedWidget {

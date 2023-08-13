@@ -74,15 +74,6 @@ class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
 }
 
 class HomeViewModel extends ViewModel<HomeViewModel> {
-  @override
-  Widget build(BuildContext context) => ViewModelProvider<HomeViewModel>(
-        state: this,
-        child: Builder(
-          builder: (context) {
-            return widget.builder(context, this);
-          },
-        ),
-      );
 
   static HomeViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider>()!.state) as HomeViewModel;
 

@@ -205,8 +205,8 @@ class $Name$View extends StatelessWidget {
 
 ### ViewModel and ViewModelBuilder
 ```dart
-import 'package:flutter/foundation.dart';
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
+import 'package:flutter/material.dart';
 
 class $Name$ViewModelBuilder extends ViewModelBuilder<$Name$ViewModel> {
   const $Name$ViewModelBuilder({
@@ -219,7 +219,7 @@ class $Name$ViewModelBuilder extends ViewModelBuilder<$Name$ViewModel> {
 }
 
 class $Name$ViewModel extends ViewModel<$Name$ViewModel> {
-  static $Name$ViewModel of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider>()!.state) as $Name$ViewModel;
+  static $Name$ViewModel of_(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<$Name$ViewModel>>>()!.state) as $Name$ViewModel;
 }
 ```
 

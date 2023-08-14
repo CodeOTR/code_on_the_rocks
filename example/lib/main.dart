@@ -1,4 +1,5 @@
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
+import 'package:example/two.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -60,6 +61,17 @@ class HomeView extends StatelessWidget {
               ),
               if (model.isLoading) const ColoredBox(color: Colors.black12, child: Center(child: CircularProgressIndicator()))
             ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScreenTwoView(),
+                ),
+              );
+            },
+            child: const Icon(Icons.navigate_next),
           ),
         );
       },

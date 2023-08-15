@@ -9,9 +9,11 @@ abstract class ViewModelBuilder<TViewModel> extends StatefulWidget {
   final ModelBuilder<TViewModel> builder;
 }
 
+T getModel<T>(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<T>>>()!.state) as T;
+
 abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
 
-  T of(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<T>>>()!.state) as T;
+  T of(BuildContext context) => getModel<T>(context);
 
   ValueNotifier<bool> loading = ValueNotifier(false);
 
@@ -25,7 +27,7 @@ abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
 
   @override
   Widget build(BuildContext context) {
-   return ViewModelProvider(
+    return ViewModelProvider(
       state: this,
       child: Builder(
         builder: (context) {
@@ -41,6 +43,5 @@ class ViewModelProvider<TViewModel extends ViewModel> extends InheritedWidget {
   final TViewModel state;
 
   @override
-  // Always rebuild children if state changes
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
 }

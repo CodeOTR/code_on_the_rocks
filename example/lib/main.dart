@@ -100,7 +100,7 @@ class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
 
 class HomeViewModel extends ViewModel<HomeViewModel> {
 
-  static HomeViewModel of_(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
+  static HomeViewModel of_(BuildContext context) => getModel<HomeViewModel>(context);
 
   final String title = 'Home';
 

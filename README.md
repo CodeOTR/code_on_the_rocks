@@ -111,8 +111,7 @@ The .of(context) method only works on an instance of your ViewModel since [stati
 class HomeViewModel extends ViewModel<HomeViewModel> {
 
   // Add this
-  static HomeViewModel of_(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
-  
+  static HomeViewModel of_(BuildContext context) => getModel<HomeViewModel>(context);
 }
 ```
 
@@ -219,7 +218,7 @@ class $Name$ViewModelBuilder extends ViewModelBuilder<$Name$ViewModel> {
 }
 
 class $Name$ViewModel extends ViewModel<$Name$ViewModel> {
-  static $Name$ViewModel of_(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<$Name$ViewModel>>>()!.state) as $Name$ViewModel;
+  static $Name$ViewModel of_(BuildContext context) => getModel<$Name$ViewModel>(context);
 }
 ```
 

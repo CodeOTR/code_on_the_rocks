@@ -4,8 +4,9 @@
 
 <p align="center">                    
 <a href="https://img.shields.io/badge/License-MIT-green"><img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"></a>                   
-<a href="https://pub.dev/packages/code_on_the_rocks"><img src="https://img.shields.io/pub/v/label=pub&color=orange" alt="pub version"></a>                     
+<a href="https://pub.dev/packages/code_on_the_rocks"><img src="https://img.shields.io/pub/v/code_on_the_rocks?label=pub&color=orange" alt="pub version"></a>                     
 </p>    
+
 
 ---
 

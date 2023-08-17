@@ -1,3 +1,14 @@
+<p align="center">
+<img src="https://codeontherocks.dev/_astro/cotr_logo.efbab083_ZapLHW.webp" height="125" alt="Code on the Rocks logo" />
+</p>
+
+<p align="center">                    
+<a href="https://img.shields.io/badge/License-MIT-green"><img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"></a>                   
+<a href="https://pub.dev/packages/code_on_the_rocks"><img src="https://img.shields.io/pub/v/label=pub&color=orange" alt="pub version"></a>                     
+</p>    
+
+---
+
 # 🍹Code on the Rocks
 A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget.
 

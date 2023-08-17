@@ -1,6 +1,6 @@
 name: code_on_the_rocks
 description: A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget.
-version: 0.0.4
+version: 0.0.5
 homepage: https://codeontherocks.dev/
 
 environment:

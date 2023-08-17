@@ -45,8 +45,7 @@ Create a ViewModel. The ViewModel is a [State](https://api.flutter.dev/flutter/w
 class HomeViewModel extends ViewModel<HomeViewModel> {
   
   // For convenience, you can add a static .of_ getter. This is optional
-  static HomeViewModel of_(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<HomeViewModel>>>()!.state) as HomeViewModel;
-
+  static HomeViewModel of_(BuildContext context) => getModel<HomeViewModel>(context);
 
   // Here is where you will add your business logic and state properties
   // Notice that you have access to setState here
@@ -86,7 +85,8 @@ return Scaffold(
       ),
     );
 ```
-You can access the ViewModel using the provided "model" object:
+Now you have several ways to access the ViewModel.
+### 1. Use the provided "model" object:
 ```dart
 return Scaffold(
       body: HomeViewModelBuilder(
@@ -96,7 +96,22 @@ return Scaffold(
       ),
     );
 ```
-Or you can use the built in .of() method. This is useful if you break your widget tree up and need to access the model in a different widget:
+
+### 2. Use the getModel\<T\> helper function:
+Under the hood, the getModel function uses dependOnInheritedWidgetOfExactType to get the type you specify in the generic parameter T.
+
+```dart
+return Scaffold(
+      body: HomeViewModelBuilder(
+        builder: (context, model) {
+          return Text(getModel<HomeViewModel>(context).title); // Add a title String to your ViewModel
+        },
+      ),
+    );
+```
+
+### 3. Use the .of(context) method:
+Each ViewModel has a built in .of() method. This is useful if you break your widget tree up and need to access the model in a different widget:
 ```dart
 return Scaffold(
       body: HomeViewModelBuilder(
@@ -106,7 +121,7 @@ return Scaffold(
       ),
     );
 ```
-The .of(context) method only works on an instance of your ViewModel since [static members can' reference type parameters of a class](https://dart.dev/tools/diagnostic-messages?utm_source=dartdev&utm_medium=redir&utm_id=diagcode&utm_content=type_parameter_referenced_by_static#type_parameter_referenced_by_static). If you want to save yourself the time it takes to type the extra parenthesis, add a separate method directly in your View Model (classes can't have instance and static methods with the same name, hence the ".of_" vs ".of"):
+The .of(context) method only works on an instance of your ViewModel since [static members can't reference type parameters of a class](https://dart.dev/tools/diagnostic-messages?utm_source=dartdev&utm_medium=redir&utm_id=diagcode&utm_content=type_parameter_referenced_by_static#type_parameter_referenced_by_static). If you want to save yourself the time it takes to type the extra parenthesis, add a separate method directly in your View Model (classes can't have instance and static methods with the same name, hence the ".of_" vs ".of"):
 ```dart
 class HomeViewModel extends ViewModel<HomeViewModel> {
 

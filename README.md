@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://codeontherocks.dev/_astro/cotr_logo.efbab083_ZapLHW.webp" height="125" alt="Code on the Rocks logo" />
+<img src="./assets/cubes_with_background.png" height="125" alt="Code on the Rocks logo" />
 </p>
 
 <p align="center">                    
@@ -9,6 +9,7 @@
 
 
 ---
+![Code on the Rocks](./assets/social_card.png)
 
 # 🍹Code on the Rocks
 A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget.
@@ -47,6 +48,11 @@ return Scaffold(
 ### 🔥 No Bloat
 
 This entire library is 46 lines of dart code with no external dependencies. 
+
+## Overview
+The Code on the Rocks library provides a simple, reusable set of widgets to help you pass state data from a `ViewModel` to a View. The `ViewModelBuilder` will be added directly to your widget tree and its state (the `ViewModel`) will be passed to its subtree by the `ViewModelProvider`/InheritedWidget.
+
+![Code on the Rocks widget diagram](./assets/cotr_diagram.png)
 
 ## Setup
 

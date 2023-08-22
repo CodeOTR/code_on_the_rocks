@@ -7,8 +7,7 @@
 
 ---
 
-# 🍹Code on the Rocks
-A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget.
+A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget 🐦🍹
 
 ## Inspiration
 Over the years I've become a big fan of several different "state-management" solutions:
@@ -49,6 +48,10 @@ This entire library is 46 lines of dart code with no external dependencies.
 The Code on the Rocks library provides a simple, reusable set of widgets to help you pass state data from a `ViewModel` to a View. The `ViewModelBuilder` will be added directly to your widget tree and its state (the `ViewModel`) will be passed to its subtree by the `ViewModelProvider`/InheritedWidget.
 
 ![Code on the Rocks widget diagram](./assets/cotr_diagram.png)
+
+The benefit to this approach is that _all_ children within the subtree can access the `ViewModel` - that's just how InheritedWidgets work. 
+
+Depending on your app's needs, you can place a ViewModelBuilder as high up in your app's widget tree as you'd like, making this a convenient way to pass services, constants, etc to your entire application.
 
 ## Setup
 

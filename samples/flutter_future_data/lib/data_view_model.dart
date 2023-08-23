@@ -12,23 +12,24 @@ class DataViewModelBuilder extends ViewModelBuilder<DataViewModel> {
 }
 
 class DataViewModel extends ViewModel<DataViewModel> {
-
   String? name;
 
   @override
   void initState() {
     getName().then((value) {
       // Call setState after the Future completes
-      setState(() => name = value);});
+      setState(() => name = value);
+    });
     super.initState();
   }
 
-  Future<String> getName() async{
+  Future<String> getName() async {
     setLoading(true);
     await Future.delayed(const Duration(seconds: 3));
     setLoading(false);
     return 'Falco';
   }
 
-   static DataViewModel of_(BuildContext context) => getModel<DataViewModel>(context);
+  static DataViewModel of_(BuildContext context) =>
+      getModel<DataViewModel>(context);
 }

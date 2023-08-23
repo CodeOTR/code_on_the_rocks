@@ -27,7 +27,8 @@ class CounterViewModel extends ViewModel<CounterViewModel> {
     });
   }
 
-  static CounterViewModel of_(BuildContext context) => getModel<CounterViewModel>(context);
+  static CounterViewModel of_(BuildContext context) =>
+      getModel<CounterViewModel>(context);
 }
 
 class CounterView extends StatelessWidget {
@@ -50,8 +51,10 @@ void main() {
   group('Counter', () {
     testWidgets('CounterViewModel smoke test', (WidgetTester tester) async {
       // Setup - Arrange
-      await tester.pumpWidget(MaterialApp(builder: (context, child) => const CounterView()));
-      final CounterViewModel model = tester.state(find.byType(CounterViewModelBuilder));
+      await tester.pumpWidget(
+          MaterialApp(builder: (context, child) => const CounterView()));
+      final CounterViewModel model =
+          tester.state(find.byType(CounterViewModelBuilder));
 
       // Action - Act
       model.increment();
@@ -65,8 +68,10 @@ void main() {
 
     testWidgets('ViewModel loading test', (WidgetTester tester) async {
       // Setup - Arrange
-      await tester.pumpWidget(MaterialApp(builder: (context, child) => const CounterView()));
-      final CounterViewModel model = tester.state(find.byType(CounterViewModelBuilder));
+      await tester.pumpWidget(
+          MaterialApp(builder: (context, child) => const CounterView()));
+      final CounterViewModel model =
+          tester.state(find.byType(CounterViewModelBuilder));
 
       expect(model.isLoading, false);
       model.setLoading(true);
@@ -81,7 +86,8 @@ void main() {
         MaterialApp(
           builder: (context, child) => CounterViewModelBuilder(
             builder: (context, model) {
-              expect(getModel<CounterViewModel>(context).runtimeType, CounterViewModel);
+              expect(getModel<CounterViewModel>(context).runtimeType,
+                  CounterViewModel);
               expect(CounterViewModel().of(context), model);
 
               return Scaffold(
@@ -96,7 +102,6 @@ void main() {
   });
 
   group('ViewModelProvider', () {
-
     test('InheritedWidget should always update', () {
       ViewModelProvider<CounterViewModel> provider = ViewModelProvider(
         state: CounterViewModel(),
@@ -105,6 +110,5 @@ void main() {
 
       expect(provider.updateShouldNotify(provider), true);
     });
-
   });
 }

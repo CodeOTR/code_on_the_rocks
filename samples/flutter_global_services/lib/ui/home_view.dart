@@ -8,13 +8,15 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthenticationViewModel authModel = getModel<AuthenticationViewModel>(context);
+    AuthenticationViewModel authModel =
+        getModel<AuthenticationViewModel>(context);
     return HomeViewModelBuilder(
       builder: (context, model) {
         return Scaffold(
           body: Center(
             child: ListenableBuilder(
-              listenable: Listenable.merge([authModel.loggedIn, authModel.name]),
+              listenable:
+                  Listenable.merge([authModel.loggedIn, authModel.name]),
               builder: (context, child) {
                 return Text(authModel.loggedIn.value.toString());
               },
@@ -38,5 +40,6 @@ class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
 }
 
 class HomeViewModel extends ViewModel<HomeViewModel> {
-  static HomeViewModel of_(BuildContext context) => getModel<HomeViewModel>(context);
+  static HomeViewModel of_(BuildContext context) =>
+      getModel<HomeViewModel>(context);
 }

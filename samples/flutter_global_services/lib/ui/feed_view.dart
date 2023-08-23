@@ -8,20 +8,18 @@ class FeedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    AuthenticationViewModel authModel = getModel<AuthenticationViewModel>(context);
+    AuthenticationViewModel authModel =
+        getModel<AuthenticationViewModel>(context);
     return FeedViewModelBuilder(
-        builder: (context, model) {
-
-          return  Scaffold(
-            body: Center(
-              child: Text(authModel.loggedIn.value.toString()),
-            ),
-            floatingActionButton: AuthButton(),
-
-          );
-        },
-      );
+      builder: (context, model) {
+        return Scaffold(
+          body: Center(
+            child: Text(authModel.loggedIn.value.toString()),
+          ),
+          floatingActionButton: AuthButton(),
+        );
+      },
+    );
   }
 }
 
@@ -36,5 +34,6 @@ class FeedViewModelBuilder extends ViewModelBuilder<FeedViewModel> {
 }
 
 class FeedViewModel extends ViewModel<FeedViewModel> {
-   static FeedViewModel of_(BuildContext context) => getModel<FeedViewModel>(context);
+  static FeedViewModel of_(BuildContext context) =>
+      getModel<FeedViewModel>(context);
 }

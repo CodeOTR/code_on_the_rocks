@@ -16,14 +16,13 @@ class CounterViewModel extends ViewModel<CounterViewModel> {
 
   ValueNotifier<int> secretCounter = ValueNotifier(0);
 
-  void incrementSecretCounter(){
+  void incrementSecretCounter() {
     secretCounter.value = secretCounter.value + 1;
   }
 
-  void decrementSecretCounter(){
+  void decrementSecretCounter() {
     secretCounter.value = secretCounter.value - 1;
   }
-
 
   void increment() {
     setState(() => counter = counter + 1);
@@ -33,6 +32,6 @@ class CounterViewModel extends ViewModel<CounterViewModel> {
     setState(() => counter = counter - 1);
   }
 
-  static CounterViewModel of_(BuildContext context) => getModel<CounterViewModel>(context);
+  static CounterViewModel of_(BuildContext context) =>
+      getModel<CounterViewModel>(context);
 }
-

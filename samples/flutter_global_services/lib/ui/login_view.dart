@@ -7,20 +7,18 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    AuthenticationViewModel authModel = getModel<AuthenticationViewModel>(context);
+    AuthenticationViewModel authModel =
+        getModel<AuthenticationViewModel>(context);
     return LoginViewModelBuilder(
-        builder: (context, model) {
-
-          return  Scaffold(
-            body: Center(
-              child: Text(authModel.loggedIn.value.toString()),
-            ),
-            floatingActionButton: AuthButton(),
-
-          );
-        },
-      );
+      builder: (context, model) {
+        return Scaffold(
+          body: Center(
+            child: Text(authModel.loggedIn.value.toString()),
+          ),
+          floatingActionButton: AuthButton(),
+        );
+      },
+    );
   }
 }
 
@@ -35,16 +33,16 @@ class LoginViewModelBuilder extends ViewModelBuilder<LoginViewModel> {
 }
 
 class LoginViewModel extends ViewModel<LoginViewModel> {
-   static LoginViewModel of_(BuildContext context) => getModel<LoginViewModel>(context);
+  static LoginViewModel of_(BuildContext context) =>
+      getModel<LoginViewModel>(context);
 }
-
 
 class AuthButton extends StatelessWidget {
   const AuthButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(onPressed: (){
+    return FloatingActionButton(onPressed: () {
       AuthenticationViewModel authModel = AuthenticationViewModel.of_(context);
       authModel.setLoggedIn(!authModel.loggedIn.value);
     });

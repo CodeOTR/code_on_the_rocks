@@ -37,29 +37,37 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ValueListenableBuilder(valueListenable: model.counter, builder: (context, value, child) => Text(value.toString())),
+                    ValueListenableBuilder(
+                        valueListenable: model.counter,
+                        builder: (context, value, child) =>
+                            Text(value.toString())),
                     const SeparatedCounter(),
                     ElevatedButton(
                       onPressed: model.isLoading
                           ? () {}
                           : () async {
-                        HomeViewModel().of(context).incrementCounterWithSetState();
-                        model.setLoading(false);
-                      },
+                              HomeViewModel()
+                                  .of(context)
+                                  .incrementCounterWithSetState();
+                              model.setLoading(false);
+                            },
                       child: const Text('Increment using setState'),
                     ),
                     ElevatedButton(
                       onPressed: model.isLoading
                           ? () {}
                           : () {
-                        model.incrementCounterWithValueNotifier();
-                      },
+                              model.incrementCounterWithValueNotifier();
+                            },
                       child: const Text('Increment using ValueNotifier'),
                     )
                   ],
                 ),
               ),
-              if (model.isLoading) const ColoredBox(color: Colors.black12, child: Center(child: CircularProgressIndicator()))
+              if (model.isLoading)
+                const ColoredBox(
+                    color: Colors.black12,
+                    child: Center(child: CircularProgressIndicator()))
             ],
           ),
           floatingActionButton: FloatingActionButton(
@@ -89,7 +97,7 @@ class SeparatedCounter extends StatelessWidget {
 }
 
 class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
-   const HomeViewModelBuilder({
+  const HomeViewModelBuilder({
     super.key,
     required super.builder,
   });
@@ -99,8 +107,8 @@ class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
 }
 
 class HomeViewModel extends ViewModel<HomeViewModel> {
-
-  static HomeViewModel of_(BuildContext context) => getModel<HomeViewModel>(context);
+  static HomeViewModel of_(BuildContext context) =>
+      getModel<HomeViewModel>(context);
 
   final String title = 'Home';
 

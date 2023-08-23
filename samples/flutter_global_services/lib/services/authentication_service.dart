@@ -1,7 +1,8 @@
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticationViewModelBuilder extends ViewModelBuilder<AuthenticationViewModel> {
+class AuthenticationViewModelBuilder
+    extends ViewModelBuilder<AuthenticationViewModel> {
   const AuthenticationViewModelBuilder({
     super.key,
     required super.builder,
@@ -12,7 +13,6 @@ class AuthenticationViewModelBuilder extends ViewModelBuilder<AuthenticationView
 }
 
 class AuthenticationViewModel extends ViewModel<AuthenticationViewModel> {
-
   ValueNotifier<bool> loggedIn = ValueNotifier(false);
 
   void setLoggedIn(bool val) {
@@ -31,5 +31,6 @@ class AuthenticationViewModel extends ViewModel<AuthenticationViewModel> {
     setState(() => email = val);
   }
 
-  static AuthenticationViewModel of_(BuildContext context) => getModel<AuthenticationViewModel>(context);
+  static AuthenticationViewModel of_(BuildContext context) =>
+      getModel<AuthenticationViewModel>(context);
 }

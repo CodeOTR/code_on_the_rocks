@@ -6,8 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('CounterViewModel smoke test', (WidgetTester tester) async {
     // Setup - Arrange
-    await tester.pumpWidget(MaterialApp(builder: (context, child) => const CounterView()));
-    final CounterViewModel model = tester.state(find.byType(CounterViewModelBuilder));
+    await tester.pumpWidget(
+        MaterialApp(builder: (context, child) => const CounterView()));
+    final CounterViewModel model =
+        tester.state(find.byType(CounterViewModelBuilder));
 
     // Action - Act
     model.increment();
@@ -21,8 +23,10 @@ void main() {
 
   testWidgets('CounterViewModel UI test', (WidgetTester tester) async {
     // Setup - Arrange
-    await tester.pumpWidget(MaterialApp(builder: (context, child) => const CounterView()));
-    final CounterViewModel model = tester.state(find.byType(CounterViewModelBuilder));
+    await tester.pumpWidget(
+        MaterialApp(builder: (context, child) => const CounterView()));
+    final CounterViewModel model =
+        tester.state(find.byType(CounterViewModelBuilder));
 
     model.setState(() => model.counter = 7);
 

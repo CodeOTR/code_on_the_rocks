@@ -6,13 +6,17 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return CounterViewModelBuilder(
       builder: (context, model) {
-        print('Building CounterView');
+        debugPrint('building');
         return Scaffold(
           appBar: AppBar(title: const Text('Counter')),
-          body: Center(child: Text('${model.counter}')),
+          body: Center(child: ValueListenableBuilder(
+             valueListenable: model.secretCounter,
+            builder: (context, value, child) {
+              return Text('$value');
+            }
+          )),
           floatingActionButton: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -20,13 +24,13 @@ class CounterView extends StatelessWidget {
               FloatingActionButton(
                 key: const Key('increment'),
                 child: const Icon(Icons.add),
-                onPressed: () => CounterViewModel.of_(context).increment(),
+                onPressed: () => CounterViewModel.of_(context).incrementSecretCounter(),
               ),
               const SizedBox(height: 8),
               FloatingActionButton(
                 key: const Key('decrement'),
                 child: const Icon(Icons.remove),
-                onPressed: () => CounterViewModel.of_(context).decrement(),
+                onPressed: () => CounterViewModel.of_(context).decrementSecretCounter(),
               ),
             ],
           ),

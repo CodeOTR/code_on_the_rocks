@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.0.6
+- [Changed] Added Code on the Rocks architecture diagram
+- [Added] Basic package tests
+- [Added] Future Data example
+- **Date**: 8-22-2023
+
 ## 0.0.5
 - [Changed] Updated readme to show additional ways to access ViewModels
 - **Date**: 8-14-2023

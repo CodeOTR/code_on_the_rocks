@@ -1,7 +1,7 @@
-![Code on the Rocks](./assets/social_card.png)
+![Code on the Rocks](https://github.com/CodeOTR/code_on_the_rocks/raw/main/assets/social_card.png)
 
 <p align="center">                    
-<a href="https://img.shields.io/badge/License-MIT-green"><img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"></a>                   
+<a href="https://img.shields.io/badge/License-MIT-green"><img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"></a>
 <a href="https://pub.dev/packages/code_on_the_rocks"><img src="https://img.shields.io/pub/v/code_on_the_rocks?label=pub&color=orange" alt="pub version"></a>                     
 </p>  
 
@@ -47,7 +47,7 @@ This entire library is 46 lines of dart code with no external dependencies.
 ## Overview
 The Code on the Rocks library provides a simple, reusable set of widgets to help you pass state data from a `ViewModel` to a View. The `ViewModelBuilder` will be added directly to your widget tree and its state (the `ViewModel`) will be passed to its subtree by the `ViewModelProvider`/InheritedWidget.
 
-![Code on the Rocks widget diagram](./assets/cotr_diagram.png)
+![Code on the Rocks widget diagram](https://github.com/CodeOTR/code_on_the_rocks/raw/main/assets/cotr_diagram.png)
 
 The benefit to this approach is that _all_ children within the subtree can access the `ViewModel` - that's just how InheritedWidgets work. 
 

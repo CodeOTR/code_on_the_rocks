@@ -15,6 +15,11 @@ class ScreenTwoView extends StatelessWidget {
               children: [
                 const Text("Screen Two Counter:"),
                 Text(model.counter.value.toString()),
+                ModelWidget<ScreenTwoViewModel>(
+                  builder: (context, model) {
+                    return Text(model.counter.value.toString());
+                  },
+                ),
                 ElevatedButton(
                     onPressed: () {
                       ScreenTwoViewModel().of(context).incrementCounter();

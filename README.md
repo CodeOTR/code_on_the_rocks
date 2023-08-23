@@ -2,65 +2,82 @@
 
 <p align="center">                    
 <a href="https://img.shields.io/badge/License-MIT-green"><img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"></a>
-<a href="https://pub.dev/packages/code_on_the_rocks"><img src="https://img.shields.io/pub/v/code_on_the_rocks?label=pub&color=orange" alt="pub version"></a>                     
-</p>  
+<a href="https://pub.dev/packages/code_on_the_rocks"><img src="https://img.shields.io/pub/v/code_on_the_rocks?label=pub&color=orange" alt="pub version"></a>      
+<a href="https://twitter.com/CodeOnTheRocks_">
+    <img src="https://img.shields.io/twitter/follow/CodeOnTheRocks_?style=social">
+  </a>
+</p>
+
+
+<p align="center">
+  <a href="https://codeontherocks.dev/">Code on the Rocks</a> •
+  <a href="https://codeotr.github.io/docs.codeontherocks.dev/">Documentation</a> •
+  <a href="https://github.com/CodeOTR/code_on_the_rocks/tree/main/samples">Sample Apps</a> •
+  <a href="https://pub.dev/packages/code_on_the_rocks/install">Pub.dev</a>
+</p>
 
 ---
 
 A bold and balanced state management library that pairs MVVM structures with the simplicity of InheritedWidget 🐦🍹
 
-## Inspiration
-Over the years I've become a big fan of several different "state-management" solutions:
+## Overview
 
-- [InheritedWidgets](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) are powerful widgets built into the Flutter Framework
-- [Stacked](https://pub.dev/packages/stacked) is an opinionated MVVM library that uses ViewModels, ViewModelBuilders, and ViewModelWidgets
-- [get_it](https://pub.dev/packages/get_it) lets you easily access services from anywhere in your app
-- [get_it_mixin](https://pub.dev/packages/get_it_mixin) lets you bind views to services stored in GetIt
+The Code on the Rocks library provides a simple, reusable set of widgets to help you pass state data from a `ViewModel` to a subtree.
+The `ViewModelBuilder` will be added directly to your widget tree and its state (the `ViewModel`) will be passed to its children by
+the `ViewModelProvider` / `InheritedWidget`.
 
-This package is an attempt to combine the best parts of these solutions into a single package that is easy to use and understand. The main benefits are listed here:
+![Code on the Rocks widget diagram](https://github.com/CodeOTR/code_on_the_rocks/raw/main/assets/cotr_diagram.png)
+
+The benefit to this approach is that _all_ children within the subtree can access the `ViewModel` - that's just how InheritedWidgets work.
+
+Depending on your app's needs, you can place a ViewModelBuilder as high up in your app's widget tree as you'd like, making this a convenient way to
+pass services, constants, etc to your entire application.
+
+## Benefits
 
 ### 💙 Pure Flutter
 
-ViewModelProviders are InheritedWidgets, meaning you can access them the using methods built into the Flutter framework. Since the ViewModel is a property on the ViewModelProvider, you can access it using the [dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html) context method. This package sets that up for you so can just do this:
+`ViewModelProviders` are `InheritedWidgets`, meaning you can access them the using methods built into the Flutter framework. Since the `ViewModel` is
+a
+property on the `ViewModelProvider`, you can access it using
+the [dependOnInheritedWidgetOfExactType](https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html) context method.
+This package sets that up for you so can just do this:
 
 ```dart
- HomeViewModel model = HomeViewModel().of(context);
+
+HomeViewModel model = HomeViewModel().of(context);
 ```
 
 ### 🍋 Easy Model Usage
-The ViewModelProvider _provides_ your model to its children through its builder property so most of the time you won't need to add code to access the model.
+
+The `ViewModelProvider` _provides_ your model to its children through its builder property so most of the time you won't need to add code to access
+the
+model.
 
 ```dart
 return Scaffold(
-      body: HomeViewModelBuilder(
-        builder: (context, model) {
-          return ... // Use the model to render your UI
-        },
-      ),
-    );
+body: HomeViewModelBuilder(
+builder: (context, model) {
+return ... // Use the model to render your UI
+},
+)
+);
 ```
 
 ### 🔥 No Bloat
 
-This entire library is 46 lines of dart code with no external dependencies. 
-
-## Overview
-The Code on the Rocks library provides a simple, reusable set of widgets to help you pass state data from a `ViewModel` to a View. The `ViewModelBuilder` will be added directly to your widget tree and its state (the `ViewModel`) will be passed to its subtree by the `ViewModelProvider`/InheritedWidget.
-
-![Code on the Rocks widget diagram](https://github.com/CodeOTR/code_on_the_rocks/raw/main/assets/cotr_diagram.png)
-
-The benefit to this approach is that _all_ children within the subtree can access the `ViewModel` - that's just how InheritedWidgets work. 
-
-Depending on your app's needs, you can place a ViewModelBuilder as high up in your app's widget tree as you'd like, making this a convenient way to pass services, constants, etc to your entire application.
+This entire library is 60 lines of dart code with no external dependencies.
 
 ## Setup
 
-**Step 1**: 
+**Step 1**:
 
-Create a ViewModel. The ViewModel is a [State](https://api.flutter.dev/flutter/widgets/State-class.html) object that introduces an InheritedWidget to the widget tree. This is where your business logic will live.
+Create a ViewModel. The ViewModel is a [State](https://api.flutter.dev/flutter/widgets/State-class.html) object that introduces an InheritedWidget to
+the widget tree. This is where your business logic will live.
+
 ```dart
 class HomeViewModel extends ViewModel<HomeViewModel> {
-  
+
   // For convenience, you can add a static .of_ getter. This is optional
   static HomeViewModel of_(BuildContext context) => getModel<HomeViewModel>(context);
 
@@ -75,9 +92,13 @@ class HomeViewModel extends ViewModel<HomeViewModel> {
   }
 }
 ```
-**Step 2**: 
 
-Create a ViewModelBuilder. The ViewModelBuilder is a [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) that you will include in your widget tree. ViewModelBuilder creates the ViewModel from above.
+**Step 2**:
+
+Create a `ViewModelBuilder`. The `ViewModelBuilder` is a [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html) that you
+will
+include in your widget tree. `ViewModelBuilder` creates the `ViewModel` from above.
+
 ```dart
  class HomeViewModelBuilder extends ViewModelBuilder<HomeViewModel> {
   const HomeViewModelBuilder({
@@ -92,53 +113,80 @@ Create a ViewModelBuilder. The ViewModelBuilder is a [StatefulWidget](https://ap
  ```
 
 ## Usage
-Once you have your ViewModel and ViewModelBuilder, add the ViewModelBuilder to your widget tree:
+
+Once you have your `ViewModel` and `ViewModelBuilder`, add the `ViewModelBuilder` to your widget tree:
+
 ```dart
 return Scaffold(
-      body: HomeViewModelBuilder(
-        builder: (context, model) {
-          return Text('Test')
-        },
-      ),
-    );
+body: HomeViewModelBuilder(
+builder: (context, model) {
+return Text('Test')
+},
+)
+);
 ```
+
 Now you have several ways to access the ViewModel.
+
 ### 1. Use the provided "model" object:
+
 ```dart
 return Scaffold(
-      body: HomeViewModelBuilder(
-        builder: (context, model) {
-          return Text(model.title); // Add a title String to your ViewModel
-        },
-      ),
-    );
+body: HomeViewModelBuilder(
+builder: (context, model) {
+return Text(model.title); // Add a title String to your ViewModel
+},
+)
+);
 ```
 
 ### 2. Use the getModel\<T\> helper function:
-Under the hood, the getModel function uses dependOnInheritedWidgetOfExactType to get the type you specify in the generic parameter T.
+
+Under the hood, the `getModel` function uses `dependOnInheritedWidgetOfExactType` to get the type you specify in the generic parameter T.
 
 ```dart
 return Scaffold(
-      body: HomeViewModelBuilder(
-        builder: (context, model) {
-          return Text(getModel<HomeViewModel>(context).title); // Add a title String to your ViewModel
-        },
-      ),
-    );
+body: HomeViewModelBuilder(
+builder: (context, model) {
+return Text(getModel<HomeViewModel>(context).title); // Add a title String to your ViewModel
+},
+)
+,
+);
 ```
 
-### 3. Use the .of(context) method:
-Each ViewModel has a built in .of() method. This is useful if you break your widget tree up and need to access the model in a different widget:
+### 3. Use the ModelWidget:
+
+```dart
+ModelWidget<ScreenTwoViewModel>
+(
+builder: (context, model) {
+return Text(model.counter.value.toString());
+},
+)
+,
+```
+
+### 4. Use the .of(context) method:
+
+Each `ViewModel` has a built in .of() method. This is useful if you break your widget tree up and need to access the model in a different widget:
+
 ```dart
 return Scaffold(
-      body: HomeViewModelBuilder(
-        builder: (context, model) {
-          return Text(HomeViewModel().of(context).title); // Add a title String to your ViewModel
-        },
-      ),
-    );
+body: HomeViewModelBuilder(
+builder: (context, model) {
+return Text(HomeViewModel().of(context).title); // Add a title String to your ViewModel
+},
+)
+,
+);
 ```
-The .of(context) method only works on an instance of your ViewModel since [static members can't reference type parameters of a class](https://dart.dev/tools/diagnostic-messages?utm_source=dartdev&utm_medium=redir&utm_id=diagcode&utm_content=type_parameter_referenced_by_static#type_parameter_referenced_by_static). If you want to save yourself the time it takes to type the extra parenthesis, add a separate method directly in your View Model (classes can't have instance and static methods with the same name, hence the ".of_" vs ".of"):
+
+The .of(context) method only works on an instance of your `ViewModel`
+since [static members can't reference type parameters of a class](https://dart.dev/tools/diagnostic-messages?utm_source=dartdev&utm_medium=redir&utm_id=diagcode&utm_content=type_parameter_referenced_by_static#type_parameter_referenced_by_static).
+If you want to save yourself the time it takes to type the extra parenthesis, add a separate method directly in your `View Model` (classes can't have
+instance and static methods with the same name, hence the ".of_" vs ".of"):
+
 ```dart
 class HomeViewModel extends ViewModel<HomeViewModel> {
 
@@ -147,15 +195,21 @@ class HomeViewModel extends ViewModel<HomeViewModel> {
 }
 ```
 
-To update your UI after a change in the ViewModel, you have two options. 
-1. Call `setState` to rebuild the entire widget tree inside your ViewModelBuilder
+To update your UI after a change in the `ViewModel`, you have two options.
+
+1. Call `setState` to rebuild the entire widget tree inside your `ViewModelBuilder`
 2. Use a combination of ValueNotifiers and ValueListenableBuilders to selectively rebuild parts of the UI
 
 You can see examples of each of these approaches in the example directory.
 
 ## Advanced Usage
+
 ### Initialize and Dispose
-Since the ViewModel object extends the State class, you can simply override [initState](https://api.flutter.dev/flutter/widgets/State/initState.html) and [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html) to run code when the ViewModel is added and removed from the widget tree, respectively: 
+
+Since the ViewModel object extends the State class, you can simply override [initState](https://api.flutter.dev/flutter/widgets/State/initState.html)
+and [dispose](https://api.flutter.dev/flutter/widgets/State/dispose.html) to run code when the ViewModel is added and removed from the widget tree,
+respectively:
+
 ```dart
 class HomeViewModel extends ViewModel<HomeViewModel> {
 
@@ -164,7 +218,7 @@ class HomeViewModel extends ViewModel<HomeViewModel> {
     debugPrint('Initialize');
     super.initState();
   }
-  
+
   @override
   void dispose() {
     debugPrint('Dispose');
@@ -174,8 +228,11 @@ class HomeViewModel extends ViewModel<HomeViewModel> {
 ```
 
 ### Set Loading
+
 ViewModels include a single ValueNotifier that can be used to mark it as "loading":
+
 ```dart
+
 ValueNotifier<bool> loading = ValueNotifier(false);
 
 bool get isLoading => loading.value;
@@ -186,7 +243,11 @@ void setLoading(bool val) {
   });
 }
 ```
-For example, you can call `model.setLoading(true)` when the ViewModel needs to load asynchronous data. When the data is loaded, call `model.setLoading(false)`. In your UI, you can show a spinner if the loading value is true using the model directly. _Whenever the loading value is changed, the entire UI inside the ViewModelBuilder will be rebuilt._
+
+For example, you can call `model.setLoading(true)` when the ViewModel needs to load asynchronous data. When the data is loaded,
+call `model.setLoading(false)`. In your UI, you can show a spinner if the loading value is true using the model directly. _Whenever the loading value
+is changed, the entire UI inside the ViewModelBuilder will be rebuilt._
+
 ```dart
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -213,6 +274,7 @@ class HomeView extends StatelessWidget {
 ## IntelliJ Live Templates
 
 ### View
+
 ```dart
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
 import 'package:flutter/material.dart';
@@ -235,6 +297,7 @@ class $Name$View extends StatelessWidget {
 ```
 
 ### ViewModel and ViewModelBuilder
+
 ```dart
 import 'package:code_on_the_rocks/code_on_the_rocks.dart';
 import 'package:flutter/material.dart';
@@ -254,4 +317,5 @@ class $Name$ViewModel extends ViewModel<$Name$ViewModel> {
 }
 ```
 
-You can read more about using variables in Live Templates [here](https://www.jetbrains.com/help/idea/template-variables.html#example_live_template_variables).
+You can read more about using variables in Live
+Templates [here](https://www.jetbrains.com/help/idea/template-variables.html#example_live_template_variables).

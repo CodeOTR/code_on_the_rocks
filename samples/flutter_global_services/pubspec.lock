@@ -36,7 +36,7 @@ packages:
   code_on_the_rocks:
     dependency: "direct main"
     description:
-      path: ".."
+      path: "../.."
       relative: true
     source: path
     version: "0.0.9"

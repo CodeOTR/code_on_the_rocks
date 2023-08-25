@@ -271,6 +271,10 @@ class HomeView extends StatelessWidget {
 }
 ```
 
+## Code on the Rocks CLI
+
+Check out the [cotr_cli](https://pub.dev/packages/cotr_cli).
+
 ## IntelliJ Live Templates
 
 ### View

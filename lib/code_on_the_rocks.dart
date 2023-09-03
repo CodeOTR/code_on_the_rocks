@@ -3,7 +3,8 @@ library code_on_the_rocks;
 import 'package:flutter/material.dart';
 
 /// A builder signature that returns a Widget and provides its children with a ViewModel
-typedef _ModelBuilder<TViewModel> = Widget Function(BuildContext context, TViewModel model);
+typedef _ModelBuilder<TViewModel> = Widget Function(
+    BuildContext context, TViewModel model);
 
 /// A ViewModelBuilder is a StatefulWidget that builds a ViewModel of type T
 /// This is the widget you will add to your widget tree
@@ -16,9 +17,12 @@ abstract class ViewModelBuilder<TViewModel> extends StatefulWidget {
 /// This is a convenience method that can be used to get the ViewModel from a BuildContext
 T getModel<T>(BuildContext context) {
   try {
-    return (context.dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<T>>>()!.state) as T;
+    return (context
+        .dependOnInheritedWidgetOfExactType<ViewModelProvider<ViewModel<T>>>()!
+        .state) as T;
   } catch (e) {
-    throw Exception("Could not find ViewModel of type $T above this widget. Make sure you have added a matching ViewModelBuilder to the widget tree.");
+    throw Exception(
+        "Could not find ViewModel of type $T above this widget. Make sure you have added a matching ViewModelBuilder to the widget tree.");
   }
 }
 
@@ -41,6 +45,9 @@ abstract class ViewModel<T> extends State<ViewModelBuilder<T>> {
       loading.value = val;
     });
   }
+
+  @override
+  void initState() => super.initState();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +80,9 @@ class ModelWidget<TViewModel extends ViewModel> extends StatelessWidget {
 /// A ViewModelProvider is an InheritedWidget that provides its children with a ViewModel
 /// It is returned by the ViewModel's build method and should not be edited
 class ViewModelProvider<TViewModel extends ViewModel> extends InheritedWidget {
-  const ViewModelProvider({Key? key, required Widget child, required this.state}) : super(key: key, child: child);
+  const ViewModelProvider(
+      {Key? key, required Widget child, required this.state})
+      : super(key: key, child: child);
   final TViewModel state;
 
   @override
